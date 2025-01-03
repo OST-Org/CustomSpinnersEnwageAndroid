@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
             title: String,
             doneButtonText: String,
             cancelButtonText: String,
-            items: List<SearchableItem>,
+            items: List<SearchableItemMulti>,
         ) {
 
 
-        var selectedItemsList = mutableListOf<SearchableItem>()
+        var selectedItemsList = mutableListOf<SearchableItemMulti>()
 
             // Use selectedItemsList if it’s not empty, else use items
             val listToShow = if (selectedItemsList.isNotEmpty()) {
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 "Cancel",
                 listToShow,
                 object : SelectionCompleteListener<Int> {
-                    override fun onCompleteSelection(selectedItems: ArrayList<SearchableItem>) {
+                    override fun onCompleteSelection(selectedItems: ArrayList<SearchableItemMulti>) {
                         Log.d("Selected Items", selectedItems.toString())
                       //  binding.editTextText.setText(selectedItems.toString())
                         selectedItemsList.clear()  // Clear the previous list

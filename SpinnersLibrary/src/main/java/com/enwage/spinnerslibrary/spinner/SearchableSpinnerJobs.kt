@@ -36,7 +36,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
 import com.enwage.spinnerslibrary.R
-import com.enwage.spinnerslibrary.SearchableItem
+
+import com.enwage.spinnerslibrary.SearchableItemMulti
 
 @Suppress("MemberVisibilityCanBePrivate", "RedundantSetter", "RedundantGetter")
 class SearchableSpinner(private val context: Context) : LifecycleObserver {
@@ -45,7 +46,7 @@ class SearchableSpinner(private val context: Context) : LifecycleObserver {
 
     lateinit var onItemSelectListener: OnItemSelectListener
     private lateinit var dialog: AlertDialog
-    var datalist: ArrayList<SearchableItem> = ArrayList()
+    var datalist: ArrayList<SearchableItemMulti> = ArrayList()
     private lateinit var dialogView: View
     var isfromsearch = false
     private lateinit var recyclerAdapter: SpinnerRecyclerAdapter
@@ -206,7 +207,7 @@ class SearchableSpinner(private val context: Context) : LifecycleObserver {
             }, animationDuration)
     }
 
-    fun setSpinnerListItems(spinnerList: ArrayList<SearchableItem>) {
+    fun setSpinnerListItems(spinnerList: ArrayList<SearchableItemMulti>) {
         datalist.clear()
         datalist.addAll(spinnerList.distinctBy { it.id }) // Avoid duplicate items
 
@@ -230,14 +231,14 @@ class SearchableSpinner(private val context: Context) : LifecycleObserver {
 
 
 
-    fun setSpinnerListItems2(spinnerList: ArrayList<SearchableItem>) {
+    fun setSpinnerListItems2(spinnerList: ArrayList<SearchableItemMulti>) {
         if (isfromsearch) {
-            val searchableItems = ArrayList<SearchableItem>()
+            val SearchableItemMultis = ArrayList<SearchableItemMulti>()
             for (item in spinnerList) {
-                searchableItems.add(SearchableItem(id = item.id, name = item.name))
+                SearchableItemMultis.add(SearchableItemMulti(id = item.id, name = item.name))
             }
 
-            datalist = searchableItems
+            datalist = SearchableItemMultis
             recyclerAdapter = SpinnerRecyclerAdapter(context, datalist, object : OnItemSelectListener {
                 override fun setOnItemSelectListener(position: Int, selectedString: String) {
                     selectedItemPosition = position
@@ -251,28 +252,28 @@ class SearchableSpinner(private val context: Context) : LifecycleObserver {
                 }
             })
         } else {
-            val searchableItems = ArrayList<SearchableItem>()
+            val SearchableItemMultis = ArrayList<SearchableItemMulti>()
             for (item in spinnerList) {
-                searchableItems.add(SearchableItem(id = item.id, name = item.name))
+                SearchableItemMultis.add(SearchableItemMulti(id = item.id, name = item.name))
             }
 
             datalist.clear()
-            datalist.addAll(searchableItems)
+            datalist.addAll(SearchableItemMultis)
 
             // Initialize adapter while preserving previous logic
             recyclerAdapter = SpinnerRecyclerAdapter(context, datalist, object : OnItemSelectListener {
                 override fun setOnItemSelectListener(position: Int, selectedString: String) {
                     selectedItemPosition = position
                     selectedItem = selectedString
-                    if (position >= 0 && position < searchableItems.size) {
-                        val selectedItem = searchableItems[position]
+                    if (position >= 0 && position < SearchableItemMultis.size) {
+                        val selectedItem = SearchableItemMultis[position]
                         if (::onItemSelectListener.isInitialized)
                             onItemSelectListener.setOnItemSelectListener(
                                 selectedItem.id,
                                 selectedItem.name
                             )
                     } else {
-                        Log.e("SpinnerError", "Invalid position: $position, List size: ${searchableItems.size}")
+                        Log.e("SpinnerError", "Invalid position: $position, List size: ${SearchableItemMultis.size}")
                     }
                 }
             })

@@ -25,9 +25,9 @@ class SearchableMultiSelectSpinner<T> {
             title: String,
             doneButtonText: String,
             cancelButtonText: String,
-            searchableItems: MutableList<SearchableItem>,
+            SearchableItemMultis: MutableList<SearchableItemMulti>,
             selectionCompleteListener: SelectionCompleteListener<T>,
-            selectedItems: List<SearchableItem> = emptyList() // Add this parameter for pre-selected items
+            selectedItems: List<SearchableItemMulti> = emptyList() // Add this parameter for pre-selected items
         ) {
 
 
@@ -63,7 +63,7 @@ class SearchableMultiSelectSpinner<T> {
             // val recyclerView = convertView.findViewById<RecyclerView>(R.id.recyclerView)
             val layoutManager = LinearLayoutManager(context)
             // Mark the pre-selected items as selected
-            searchableItems.forEach { item ->
+            SearchableItemMultis.forEach { item ->
                 if (selectedItems.contains(item)) {
                     item.isSelected = true
                 }
@@ -71,9 +71,9 @@ class SearchableMultiSelectSpinner<T> {
 
             val adapter = SearchableAdapter(
                 context,
-                searchableItems,
+                SearchableItemMultis,
                 object : SearchableAdapter.ItemClickListener<T> {
-                    override fun onItemClicked(item: SearchableItem, isChecked: Boolean) {
+                    override fun onItemClicked(item: SearchableItemMulti, isChecked: Boolean) {
                         item.isSelected = isChecked
                     }
                 }
@@ -108,7 +108,7 @@ class SearchableMultiSelectSpinner<T> {
             tvDone.setOnClickListener {
 
                     dialog.dismiss()
-                    val selectedItems = searchableItems.filter { it.isSelected }
+                    val selectedItems = SearchableItemMultis.filter { it.isSelected }
                     selectionCompleteListener.onCompleteSelection(ArrayList(selectedItems))
 
                 }

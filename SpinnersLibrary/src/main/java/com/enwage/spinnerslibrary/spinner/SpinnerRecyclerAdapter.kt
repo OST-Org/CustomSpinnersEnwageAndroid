@@ -14,13 +14,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.enwage.spinnerslibrary.R
-import com.enwage.spinnerslibrary.SearchableItem
+import com.enwage.spinnerslibrary.SearchableItemMulti
 
 
 
 internal class SpinnerRecyclerAdapter(
     private val context: Context,
-    private val originalList: ArrayList<SearchableItem>, // Original unfiltered list
+    private val originalList: ArrayList<SearchableItemMulti>, // Original unfiltered list
     private val onItemSelectListener: OnItemSelectListener
 ) : RecyclerView.Adapter<SpinnerRecyclerAdapter.SpinnerHolder>() {
 
@@ -115,7 +115,7 @@ internal class SpinnerRecyclerAdapter(
     }
 
     // Get the selected items
-    fun getSelectedItems(): List<SearchableItem> {
+    fun getSelectedItems(): List<SearchableItemMulti> {
         return originalList.filter { it.isSelected }
     }
 }
@@ -138,12 +138,12 @@ internal class SpinnerRecyclerAdapter(
 //
 //internal class SpinnerRecyclerAdapter(
 //    private val context: Context,
-//    private val list: ArrayList<SearchableItem>,
+//    private val list: ArrayList<SearchableItemMulti>,
 //    private val onItemSelectListener: ItemClickListener
 //) : RecyclerView.Adapter<SpinnerRecyclerAdapter.SpinnerHolder>(), Filterable {
 //
 //
-//    private var filteredList: MutableList<SearchableItem> = list.toMutableList()
+//    private var filteredList: MutableList<SearchableItemMulti> = list.toMutableList()
 //
 //    var highlightSelectedItem: Boolean = true
 //    private val selectedItems = mutableSetOf<Int>()  // Track selected items by their position
@@ -161,7 +161,7 @@ internal class SpinnerRecyclerAdapter(
 //    }
 //
 //    interface ItemClickListener {
-//        fun onItemClicked(item: SearchableItem, isChecked: Boolean)
+//        fun onItemClicked(item: SearchableItemMulti, isChecked: Boolean)
 //    }
 //
 //
@@ -213,12 +213,12 @@ internal class SpinnerRecyclerAdapter(
 //        internal var titleTextView = mView.findViewById<TextView>(R.id.titleTextView)
 //        internal var checkBox = mView.findViewById<CheckBox>(R.id.checkBox)
 //
-//        var mItem: SearchableItem? = null
+//        var mItem: SearchableItemMulti? = null
 //    }
 //
 //    // Method to filter the list based on a search query
 //    fun filter(query: CharSequence?) {
-//        val filteredItems = ArrayList<SearchableItem>()
+//        val filteredItems = ArrayList<SearchableItemMulti>()
 //        if (query.isNullOrEmpty()) {
 //            filterList(list)
 //        } else {
@@ -232,15 +232,15 @@ internal class SpinnerRecyclerAdapter(
 //    }
 //
 //    // Update the list based on the filtered results
-//    private fun filterList(filteredItems: ArrayList<SearchableItem>) {
+//    private fun filterList(filteredItems: ArrayList<SearchableItemMulti>) {
 //        list.clear()
 //        list.addAll(filteredItems)
 //        notifyDataSetChanged()
 //    }
 //
 //    // Get the selected items data (when Done is clicked)
-//    fun getSelectedItems(): List<SearchableItem> {
-//        val selectedData = mutableListOf<SearchableItem>()
+//    fun getSelectedItems(): List<SearchableItemMulti> {
+//        val selectedData = mutableListOf<SearchableItemMulti>()
 //        for (index in selectedItems) {
 //            selectedData.add(list[index])  // Retrieve the selected items from the list
 //        }
@@ -252,7 +252,7 @@ internal class SpinnerRecyclerAdapter(
 //        return object : android.widget.Filter() {
 //            override fun performFiltering(constraint: CharSequence?): FilterResults {
 //                val filterResults = FilterResults()
-//                val filteredItems = mutableListOf<SearchableItem>()
+//                val filteredItems = mutableListOf<SearchableItemMulti>()
 //
 //                if (constraint == null || constraint.isEmpty()) {
 //                    filteredItems.addAll(list) // No filtering
@@ -272,7 +272,7 @@ internal class SpinnerRecyclerAdapter(
 //            }
 //
 //            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-//                filteredList = results?.values as MutableList<SearchableItem>
+//                filteredList = results?.values as MutableList<SearchableItemMulti>
 //                notifyDataSetChanged()
 //            }
 //        }

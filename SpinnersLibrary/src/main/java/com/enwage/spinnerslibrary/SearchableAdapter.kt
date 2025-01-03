@@ -11,21 +11,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 class SearchableAdapter<T>(
     private val context: Context,
-    private val originalList: List<SearchableItem >,
+    private val originalList: List<SearchableItemMulti >,
     private val itemClickListener: ItemClickListener<T>
 ) : RecyclerView.Adapter<SearchableAdapter<T>.ViewHolder>(), Filterable {
 
-    private var filteredList: MutableList<SearchableItem> = originalList.toMutableList()
+    private var filteredList: MutableList<SearchableItemMulti> = originalList.toMutableList()
 
     interface ItemClickListener<T> {
-        fun onItemClicked(item: SearchableItem, isChecked: Boolean)
+        fun onItemClicked(item: SearchableItemMulti, isChecked: Boolean)
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         internal var titleTextView = mView.findViewById<TextView>(R.id.titleTextView)
         internal var checkBox = mView.findViewById<CheckBox>(R.id.checkBox)
 
-        var mItem: SearchableItem? = null
+        var mItem: SearchableItemMulti? = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -78,7 +78,7 @@ class SearchableAdapter<T>(
         return object : android.widget.Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filterResults = FilterResults()
-                val filteredItems = mutableListOf<SearchableItem>()
+                val filteredItems = mutableListOf<SearchableItemMulti>()
 
                 if (constraint == null || constraint.isEmpty()) {
                     filteredItems.addAll(originalList) // No filtering
@@ -98,7 +98,7 @@ class SearchableAdapter<T>(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredList = results?.values as MutableList<SearchableItem>
+                filteredList = results?.values as MutableList<SearchableItemMulti>
                 notifyDataSetChanged()
             }
         }
