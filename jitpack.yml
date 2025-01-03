@@ -5,8 +5,3 @@ before_install:
 
 
 
-install:
-  - ./gradlew clean assemble
-
-script:
-  - ./gradlew publishToMavenLocal
